@@ -90,9 +90,15 @@ fun AppNavigation() {
                 val category = backStackEntry.arguments?.getString("category") ?: ""
                 CategoryListScreen(navController, category)
             }
-            composable(Screen.ItemDetail.route) { backStackEntry ->
+            composable(
+                route = Screen.ItemDetail.route,
+                arguments = listOf(
+                    androidx.navigation.navArgument("category") { type = androidx.navigation.NavType.StringType },
+                    androidx.navigation.navArgument("id") { type = androidx.navigation.NavType.IntType }
+                )
+            ) { backStackEntry ->
                 val category = backStackEntry.arguments?.getString("category") ?: ""
-                val id = backStackEntry.arguments?.getString("id")?.toIntOrNull() ?: 0
+                val id = backStackEntry.arguments?.getInt("id") ?: 0
                 ItemDetailScreen(navController, category, id)
             }
             composable(Screen.AiSearch.route) {
