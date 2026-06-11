@@ -60,6 +60,7 @@ fun MainScreen(navController: NavController) {
             CategoryCard(
                 title = "생물",
                 subtitle = "동식물, 버섯류",
+                imageUrl = "https://botw-compendium.herokuapp.com/api/v3/compendium/entry/horse/image",
                 color = CreatureGreen,
                 modifier = Modifier.weight(1f)
             ) {
@@ -68,6 +69,7 @@ fun MainScreen(navController: NavController) {
             CategoryCard(
                 title = "몬스터",
                 subtitle = "마물, 골렘 등",
+                imageUrl = "https://botw-compendium.herokuapp.com/api/v3/compendium/entry/bokoblin/image",
                 color = MonsterRed,
                 modifier = Modifier.weight(1f)
             ) {
@@ -82,6 +84,7 @@ fun MainScreen(navController: NavController) {
             CategoryCard(
                 title = "장비",
                 subtitle = "무기, 활, 조나우 기어",
+                imageUrl = "https://botw-compendium.herokuapp.com/api/v3/compendium/entry/master_sword/image",
                 color = EquipmentBlue,
                 modifier = Modifier.weight(1f)
             ) {
@@ -90,6 +93,7 @@ fun MainScreen(navController: NavController) {
             CategoryCard(
                 title = "소재",
                 subtitle = "요리 재료, 광석, 결정",
+                imageUrl = "https://botw-compendium.herokuapp.com/api/v3/compendium/entry/diamond/image",
                 color = MaterialOrange,
                 modifier = Modifier.weight(1f)
             ) {
@@ -116,6 +120,7 @@ fun MainScreen(navController: NavController) {
 fun CategoryCard(
     title: String,
     subtitle: String,
+    imageUrl: String,
     color: Color,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
@@ -124,12 +129,20 @@ fun CategoryCard(
         modifier = modifier
             .aspectRatio(1f)
             .clip(RoundedCornerShape(16.dp))
-            .background(color)
-            .clickable(onClick = onClick)
-            .padding(16.dp),
+            .background(color) // Fallback color
+            .clickable(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
-        Column(horizontalAlignment = Alignment.CenterHorizontally) {
+        coil.compose.AsyncImage(
+            model = imageUrl,
+            contentDescription = title,
+            contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+        // Dark overlay for text readability
+        Box(modifier = Modifier.fillMaxSize().background(Color.Black.copy(alpha = 0.5f)))
+        
+        Column(horizontalAlignment = Alignment.CenterHorizontally, modifier = Modifier.padding(16.dp)) {
             Text(title, color = Color.White, fontSize = 20.sp, fontWeight = FontWeight.Bold)
             Spacer(modifier = Modifier.height(4.dp))
             Text(subtitle, color = Color.White.copy(alpha = 0.8f), fontSize = 12.sp)
