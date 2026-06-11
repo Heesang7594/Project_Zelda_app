@@ -16,11 +16,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavController
 import coil.compose.AsyncImage
+import com.example.thelegendofzelda.data.local.LocalCompendiumDataSource
 import com.example.thelegendofzelda.data.model.CompendiumEntry
-import com.example.thelegendofzelda.data.remote.RetrofitClient
-import com.example.thelegendofzelda.data.remote.TranslationRepository
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalLayoutApi::class)
 @Composable
@@ -28,33 +30,29 @@ fun ItemDetailScreen(navController: NavController, category: String, id: Int) {
     var entry by remember { mutableStateOf<CompendiumEntry?>(null) }
     var isLoading by remember { mutableStateOf(true) }
     var errorMessage by remember { mutableStateOf<String?>(null) }
-    
-    var translatedDescription by remember { mutableStateOf<String?>(null) }
-    var isTranslating by remember { mutableStateOf(false) }
+    val context = LocalContext.current
+    val moshi = remember { Moshi.Builder().add(KotlinJsonAdapterFactory()).build() }
+    val localDataSource = remember { LocalCompendiumDataSource(context.applicationContext, moshi) }
 
     LaunchedEffect(id) {
         try {
-            val response = RetrofitClient.hyruleApi.getEntry(id.toString())
-            var item = response.data
-            
-            val tName = TranslationRepository.translateNames(listOf(item.name))[item.name] ?: item.name
-            item = item.copy(name = tName)
-            entry = item
-
-            isTranslating = true
-            translatedDescription = TranslationRepository.translateDescription(item.description)
+            val item = localDataSource.getEntry(id.toString())
+            if (item != null) {
+                entry = item
+            } else {
+                errorMessage = "정보를 찾을 수 없습니다."
+            }
         } catch (e: Exception) {
             errorMessage = e.localizedMessage
         } finally {
             isLoading = false
-            isTranslating = false
         }
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text(entry?.name?.replaceFirstChar { it.uppercase() } ?: "상세 정보") },
+                title = { Text(entry?.nameKo ?: entry?.name?.replaceFirstChar { it.uppercase() } ?: "상세 정보") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(Icons.Filled.ArrowBack, contentDescription = "뒤로가기")
@@ -98,7 +96,7 @@ fun ItemDetailScreen(navController: NavController, category: String, id: Int) {
                             Column(modifier = Modifier.padding(16.dp)) {
                                 Text("ⓘ 기본 정보", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                                 Spacer(modifier = Modifier.height(8.dp))
-                                Text("이름: ${item.name}")
+                                Text("이름: ${item.nameKo ?: item.name}")
                                 Text("분류: ${item.category}")
                                 Text("도감 번호: #${item.id}")
                             }
@@ -146,17 +144,7 @@ fun ItemDetailScreen(navController: NavController, category: String, id: Int) {
                             Column(modifier = Modifier.padding(16.dp)) {
                                 Text("✨ 상세 설명", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                                 Spacer(modifier = Modifier.height(8.dp))
-                                if (isTranslating) {
-                                    Row(verticalAlignment = Alignment.CenterVertically) {
-                                        CircularProgressIndicator(modifier = Modifier.size(16.dp), strokeWidth = 2.dp)
-                                        Spacer(modifier = Modifier.width(8.dp))
-                                        Text("Gemini AI로 한글 번역 중...", style = MaterialTheme.typography.bodySmall, color = Color.Gray)
-                                    }
-                                    Spacer(modifier = Modifier.height(8.dp))
-                                    Text(item.description, color = Color.Gray)
-                                } else {
-                                    Text(translatedDescription ?: item.description)
-                                }
+                                Text(item.descriptionKo ?: item.description)
                             }
                         }
                     }

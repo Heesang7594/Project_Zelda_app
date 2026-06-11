@@ -118,7 +118,7 @@ fun CompendiumItemCard(entry: CompendiumEntry, onClick: () -> Unit) {
                 modifier = Modifier.padding(8.dp)
             ) {
                 Text(
-                    text = entry.name.replaceFirstChar { it.uppercase() },
+                    text = entry.nameKo ?: entry.name.replaceFirstChar { it.uppercase() },
                     style = MaterialTheme.typography.titleMedium,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis

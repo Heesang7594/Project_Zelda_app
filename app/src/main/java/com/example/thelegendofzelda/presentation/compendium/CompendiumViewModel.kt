@@ -1,17 +1,22 @@
 package com.example.thelegendofzelda.presentation.compendium
 
-import androidx.lifecycle.ViewModel
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.thelegendofzelda.data.local.LocalCompendiumDataSource
 import com.example.thelegendofzelda.data.model.CompendiumEntry
 import com.example.thelegendofzelda.data.remote.RetrofitClient
-import com.example.thelegendofzelda.data.remote.TranslationRepository
 import com.example.thelegendofzelda.util.UiState
+import com.squareup.moshi.Moshi
+import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 
-class CompendiumViewModel : ViewModel() {
+class CompendiumViewModel(application: Application) : AndroidViewModel(application) {
+    private val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    private val localDataSource = LocalCompendiumDataSource(application, moshi)
     private val _creaturesState = MutableStateFlow<UiState<List<CompendiumEntry>>>(UiState.Loading)
     val creaturesState: StateFlow<UiState<List<CompendiumEntry>>> = _creaturesState.asStateFlow()
 
@@ -38,18 +43,10 @@ class CompendiumViewModel : ViewModel() {
         viewModelScope.launch {
             stateFlow.value = UiState.Loading
             try {
-                val response = RetrofitClient.hyruleApi.getCategory(category)
-                val entries = response.data
+                // Fetch directly from our local JSON data source which contains Korean translations!
+                val entries = localDataSource.getCategory(category)
                 
-                // Translate names dynamically
-                val englishNames = entries.map { it.name }
-                val translatedNamesMap = TranslationRepository.translateNames(englishNames)
-                
-                val translatedEntries = entries.map { entry ->
-                    entry.copy(name = translatedNamesMap[entry.name] ?: entry.name)
-                }
-                
-                stateFlow.value = UiState.Success(translatedEntries)
+                stateFlow.value = UiState.Success(entries)
             } catch (e: Exception) {
                 stateFlow.value = UiState.Error(e.localizedMessage ?: "Unknown Error")
             }
