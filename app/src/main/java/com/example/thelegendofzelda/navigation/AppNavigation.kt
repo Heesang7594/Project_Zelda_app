@@ -105,7 +105,7 @@ fun AppNavigation() {
                 AiSearchScreen()
             }
             composable(Screen.GuideVideo.route) {
-                VideoListScreen()
+                VideoListScreen(navController)
             }
         }
     }
