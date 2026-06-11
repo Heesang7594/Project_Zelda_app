@@ -22,7 +22,9 @@ data class CompendiumEntry(
     @Json(name = "image") val image: String,
     @Json(name = "common_locations") val commonLocations: List<String>? = null,
     @Json(name = "drops") val drops: List<String>? = null,
-    @Json(name = "properties") val properties: Properties? = null
+    @Json(name = "properties") val properties: Properties? = null,
+    @Json(name = "name_ko") val nameKo: String? = null,
+    @Json(name = "description_ko") val descriptionKo: String? = null
 )
 
 @JsonClass(generateAdapter = true)
