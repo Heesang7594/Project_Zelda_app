@@ -28,6 +28,11 @@ fun CategoryListScreen(
     category: String,
     viewModel: CompendiumViewModel = viewModel()
 ) {
+    // 카테고리 진입 시 한 번만 호출되도록 LaunchedEffect 사용
+    LaunchedEffect(category) {
+        viewModel.loadCategoryIfNotLoaded(category)
+    }
+
     val stateFlow = when (category) {
         "creatures" -> viewModel.creaturesState
         "monsters" -> viewModel.monstersState
@@ -66,14 +71,29 @@ fun CategoryListScreen(
         Box(modifier = Modifier.padding(padding).fillMaxSize()) {
             when (val state = uiState) {
                 is UiState.Loading -> {
-                    CircularProgressIndicator(modifier = Modifier.align(Alignment.Center))
+                    Column(
+                        modifier = Modifier.align(Alignment.Center),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        CircularProgressIndicator(color = MaterialTheme.colorScheme.primary)
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Text("게임 데이터를 불러오는 중입니다...", color = MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
                 }
                 is UiState.Error -> {
-                    Text(
-                        text = state.message,
-                        color = MaterialTheme.colorScheme.error,
-                        modifier = Modifier.align(Alignment.Center)
-                    )
+                    Column(
+                        modifier = Modifier.align(Alignment.Center),
+                        horizontalAlignment = Alignment.CenterHorizontally
+                    ) {
+                        Text(
+                            text = state.message,
+                            color = MaterialTheme.colorScheme.error
+                        )
+                        Spacer(modifier = Modifier.height(16.dp))
+                        Button(onClick = { viewModel.loadCategoryIfNotLoaded(category) }) {
+                            Text("다시 시도")
+                        }
+                    }
                 }
                 is UiState.Success -> {
                     LazyVerticalGrid(
