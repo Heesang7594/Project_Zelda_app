@@ -20,6 +20,8 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.example.thelegendofzelda.data.remote.YouTubeSearchItem
 import com.example.thelegendofzelda.util.UiState
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -31,14 +33,16 @@ fun VideoListScreen(navController: androidx.navigation.NavController, viewModel:
     val tabs = listOf("전체", "보스", "사당", "전투", "팁")
 
     LaunchedEffect(selectedTabIndex) {
-        val query = if (selectedTabIndex == 0) "공략" else tabs[selectedTabIndex] + " 공략"
-        viewModel.searchVideos(query)
+        if (selectedTabIndex in tabs.indices) {
+            val query = if (selectedTabIndex == 0) "공략" else tabs[selectedTabIndex] + " 공략"
+            viewModel.searchVideos(query)
+        }
     }
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("▶ 공략 영상\n보스 & 사당 클리어 가이드") },
+                title = { Text("▶ 유튜브 공략 영상") },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Color(0xFFE50914), // Youtube red
                     titleContentColor = Color.White
@@ -47,15 +51,44 @@ fun VideoListScreen(navController: androidx.navigation.NavController, viewModel:
         }
     ) { padding ->
         Column(modifier = Modifier.padding(padding).fillMaxSize()) {
-            ScrollableTabRow(
-                selectedTabIndex = selectedTabIndex,
-                edgePadding = 8.dp
+            
+            var searchQuery by remember { mutableStateOf("") }
+            
+            // Search Bar
+            OutlinedTextField(
+                value = searchQuery,
+                onValueChange = { searchQuery = it },
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(horizontal = 16.dp, vertical = 8.dp),
+                placeholder = { Text("영상 검색 (예: 마스터 소드)") },
+                trailingIcon = {
+                    IconButton(onClick = {
+                        if (searchQuery.isNotBlank()) {
+                            selectedTabIndex = -1 // No chip selected
+                            viewModel.searchVideos(searchQuery)
+                        }
+                    }) {
+                        Icon(Icons.Filled.Search, contentDescription = "Search")
+                    }
+                },
+                singleLine = true,
+                shape = androidx.compose.foundation.shape.RoundedCornerShape(24.dp)
+            )
+
+            // Quick Filters
+            androidx.compose.foundation.lazy.LazyRow(
+                contentPadding = PaddingValues(horizontal = 16.dp),
+                horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                tabs.forEachIndexed { index, title ->
-                    Tab(
+                items(tabs.size) { index ->
+                    FilterChip(
                         selected = selectedTabIndex == index,
-                        onClick = { selectedTabIndex = index },
-                        text = { Text(title) }
+                        onClick = { 
+                            selectedTabIndex = index
+                            searchQuery = "" 
+                        },
+                        label = { Text(tabs[index]) }
                     )
                 }
             }
