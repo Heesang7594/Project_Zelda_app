@@ -24,19 +24,34 @@ fun MainScreen(navController: NavController) {
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        Text(
-            text = "하이랄 도감 (왕국의 눈물)",
-            fontSize = 24.sp,
-            fontWeight = FontWeight.Bold,
-            color = ZeldaGreen,
-            modifier = Modifier.padding(bottom = 8.dp)
-        )
-        Text(
-            text = "젤다의 전설 왕국의 눈물 아이템 정보",
-            fontSize = 14.sp,
-            color = Color.Gray,
-            modifier = Modifier.padding(bottom = 24.dp)
-        )
+        Row(
+            modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Column {
+                Text(
+                    text = "하이랄 도감 (왕국의 눈물)",
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = ZeldaGreen,
+                    modifier = Modifier.padding(bottom = 8.dp)
+                )
+                Text(
+                    text = "젤다의 전설 왕국의 눈물 아이템 정보",
+                    fontSize = 14.sp,
+                    color = Color.Gray
+                )
+            }
+            
+            val themeState = com.example.thelegendofzelda.ui.theme.LocalThemeState.current
+            IconButton(onClick = { themeState.toggleTheme() }) {
+                Text(
+                    text = if (themeState.isDark) "☀️" else "🌙",
+                    fontSize = 24.sp
+                )
+            }
+        }
 
         Row(
             modifier = Modifier.fillMaxWidth(),
