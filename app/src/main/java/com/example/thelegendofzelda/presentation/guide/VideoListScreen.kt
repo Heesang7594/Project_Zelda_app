@@ -23,7 +23,7 @@ import com.example.thelegendofzelda.util.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun VideoListScreen(viewModel: GuideViewModel = viewModel()) {
+fun VideoListScreen(navController: androidx.navigation.NavController, viewModel: GuideViewModel = viewModel()) {
     val videoState by viewModel.videoState.collectAsState()
     val context = LocalContext.current
     
