@@ -21,7 +21,7 @@ import com.example.thelegendofzelda.ui.theme.*
 fun MainScreen(navController: NavController) {
     Box(modifier = Modifier.fillMaxSize()) {
         coil.compose.AsyncImage(
-            model = "https://zelda.nintendo.com/tears-of-the-kingdom/assets/img/home/hero-bg.jpg",
+            model = "https://assets.nintendo.com/image/upload/ar_16:9,b_auto:border,c_lpad/b_white/f_auto/q_auto/dpr_auto/c_scale,w_1200/v1/ncom/en_US/games/switch/t/the-legend-of-zelda-tears-of-the-kingdom-switch/hero",
             contentDescription = null,
             contentScale = androidx.compose.ui.layout.ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
