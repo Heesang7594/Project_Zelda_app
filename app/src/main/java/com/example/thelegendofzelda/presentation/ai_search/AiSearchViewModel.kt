@@ -13,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
+import retrofit2.HttpException
 
 class AiSearchViewModel : ViewModel() {
     private val _searchState = MutableStateFlow<UiState<String>>(UiState.Success(""))
@@ -31,7 +32,7 @@ class AiSearchViewModel : ViewModel() {
                 val request = GeminiRequest(
                     contents = listOf(Content(role = "user", parts = listOf(Part(text = query)))),
                     systemInstruction = SystemInstruction(
-                        parts = listOf(Part(text = "당신은 '젤다의 전설: 왕국의 눈물'의 공식 게임 가이드입니다. 정확한 아이템 위치와 공략 정보만을 제공해야 하며, 게임과 관련 없거나 거짓된 정보는 답변하지 마세요."))
+                        parts = listOf(Part(text = "당신은 사용자에게 도움이 되는 친절한 AI 어시스턴트입니다. 젤다의 전설 관련 질문뿐만 아니라 어떠한 질문에도 자유롭고 친절하게 한국어로 답변해 주세요."))
                     )
                 )
 
@@ -40,6 +41,12 @@ class AiSearchViewModel : ViewModel() {
                     ?: "답변을 생성하지 못했습니다."
                 
                 _searchState.value = UiState.Success(text)
+            } catch (e: HttpException) {
+                if (e.code() == 503) {
+                    _searchState.value = UiState.Error("현재 AI 서버에 접속자가 많아 일시적인 지연이 발생하고 있습니다. 잠시 후 다시 시도해 주세요.")
+                } else {
+                    _searchState.value = UiState.Error("네트워크 오류가 발생했습니다 (${e.code()}).")
+                }
             } catch (e: Exception) {
                 _searchState.value = UiState.Error(e.localizedMessage ?: "알 수 없는 오류가 발생했습니다.")
             }

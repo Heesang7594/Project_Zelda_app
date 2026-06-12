@@ -30,7 +30,7 @@ fun AiSearchScreen(viewModel: AiSearchViewModel = viewModel()) {
 
     LaunchedEffect(Unit) {
         chatHistory = listOf(
-            ChatMessage("안녕하세요! 젤다 게임 공략 도우미입니다. 궁금한 것을 물어보세요.\n예: '추운 지역 탐험 시 필요한 방한복이나 요리 레시피 알려줘'", false)
+            ChatMessage("안녕하세요! 친절한 AI 어시스턴트입니다. 젤다의 전설 공략뿐만 아니라 궁금한 것은 무엇이든 자유롭게 물어보세요!", false)
         )
     }
 
