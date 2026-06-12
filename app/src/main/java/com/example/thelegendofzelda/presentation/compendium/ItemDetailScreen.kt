@@ -98,19 +98,20 @@ fun ItemDetailScreen(navController: NavController, category: String, id: Int) {
                                 Text("ⓘ 기본 정보", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                                 Spacer(modifier = Modifier.height(8.dp))
                                 Text("이름: ${item.nameKo ?: item.name}")
-                                Text("분류: ${item.category}")
+                                Text("분류: ${item.categoryKo ?: item.category}")
                                 Text("도감 번호: #${item.id}")
                             }
                         }
                         
                         Spacer(modifier = Modifier.height(16.dp))
                         
-                        if (!item.commonLocations.isNullOrEmpty()) {
+                        val locations = item.commonLocationsKo ?: item.commonLocations
+                        if (!locations.isNullOrEmpty()) {
                             Card(modifier = Modifier.fillMaxWidth()) {
                                 Column(modifier = Modifier.padding(16.dp)) {
                                     Text("📍 주요 서식지 및 획득처", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
                                     Spacer(modifier = Modifier.height(8.dp))
-                                    item.commonLocations.forEach { loc ->
+                                    locations.forEach { loc ->
                                         Text("• $loc")
                                     }
                                 }
@@ -118,7 +119,8 @@ fun ItemDetailScreen(navController: NavController, category: String, id: Int) {
                             Spacer(modifier = Modifier.height(16.dp))
                         }
                         
-                        if (!item.drops.isNullOrEmpty()) {
+                        val currentDrops = item.dropsKo ?: item.drops
+                        if (!currentDrops.isNullOrEmpty()) {
                             Card(modifier = Modifier.fillMaxWidth()) {
                                 Column(modifier = Modifier.padding(16.dp)) {
                                     Text("📦 드랍 아이템", fontWeight = FontWeight.Bold, color = MaterialTheme.colorScheme.primary)
@@ -127,7 +129,7 @@ fun ItemDetailScreen(navController: NavController, category: String, id: Int) {
                                         modifier = Modifier.horizontalScroll(rememberScrollState()),
                                         horizontalArrangement = Arrangement.spacedBy(8.dp)
                                     ) {
-                                        item.drops.forEach { drop ->
+                                        currentDrops.forEach { drop ->
                                             Surface(
                                                 color = MaterialTheme.colorScheme.secondaryContainer,
                                                 shape = RoundedCornerShape(8.dp)
