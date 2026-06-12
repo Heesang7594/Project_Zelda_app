@@ -19,11 +19,24 @@ import com.example.thelegendofzelda.ui.theme.*
 
 @Composable
 fun MainScreen(navController: NavController) {
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .padding(16.dp)
-    ) {
+    Box(modifier = Modifier.fillMaxSize()) {
+        coil.compose.AsyncImage(
+            model = "https://zelda.nintendo.com/tears-of-the-kingdom/assets/img/home/hero-bg.jpg",
+            contentDescription = null,
+            contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
+        )
+        Box(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(MaterialTheme.colorScheme.background.copy(alpha = 0.85f))
+        )
+        
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(16.dp)
+        ) {
         Row(
             modifier = Modifier.fillMaxWidth().padding(bottom = 24.dp),
             horizontalArrangement = Arrangement.SpaceBetween,
@@ -112,6 +125,7 @@ fun MainScreen(navController: NavController) {
                 Text("💡 사용 가이드", fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp))
                 Text("• 카테고리를 선택하여 아이템 목록 확인\n• AI 검색으로 상황별 추천 받기\n• 공략 탭에서 보스 전략 영상 시청", fontSize = 14.sp)
             }
+        }
         }
     }
 }
