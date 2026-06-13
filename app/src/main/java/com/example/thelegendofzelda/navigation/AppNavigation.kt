@@ -25,11 +25,14 @@ import com.example.thelegendofzelda.presentation.compendium.CategoryListScreen
 import com.example.thelegendofzelda.presentation.compendium.ItemDetailScreen
 import com.example.thelegendofzelda.presentation.guide.VideoListScreen
 import com.example.thelegendofzelda.presentation.main.MainScreen
+import com.example.thelegendofzelda.presentation.map.MapScreen
+import androidx.compose.material.icons.filled.LocationOn
 
 sealed class Screen(val route: String, val title: String? = null, val icon: androidx.compose.ui.graphics.vector.ImageVector? = null) {
     object Main : Screen("main", "도감", Icons.Filled.List)
     object AiSearch : Screen("ai_search", "AI 검색", Icons.Filled.Search)
     object GuideVideo : Screen("guide_video", "공략", Icons.Filled.PlayArrow)
+    object Map : Screen("map", "지도", Icons.Filled.LocationOn)
     
     object CategoryList : Screen("category/{category}") {
         fun createRoute(category: String) = "category/$category"
@@ -41,6 +44,7 @@ sealed class Screen(val route: String, val title: String? = null, val icon: andr
 
 val bottomNavItems = listOf(
     Screen.Main,
+    Screen.Map,
     Screen.AiSearch,
     Screen.GuideVideo
 )
@@ -106,6 +110,9 @@ fun AppNavigation() {
             }
             composable(Screen.GuideVideo.route) {
                 VideoListScreen(navController)
+            }
+            composable(Screen.Map.route) {
+                MapScreen()
             }
         }
     }
