@@ -7,10 +7,12 @@ import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -46,6 +48,8 @@ fun CategoryListScreen(
         else -> "도감"
     }
 
+    var searchQuery by remember { mutableStateOf("") }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -76,14 +80,39 @@ fun CategoryListScreen(
                     )
                 }
                 is UiState.Success -> {
-                    LazyVerticalGrid(
-                        columns = GridCells.Fixed(2),
-                        contentPadding = PaddingValues(8.dp),
-                        modifier = Modifier.fillMaxSize()
-                    ) {
-                        items(state.data) { entry ->
-                            CompendiumItemCard(entry = entry) {
-                                navController.navigate(Screen.ItemDetail.createRoute(category, entry.id))
+                    Column(modifier = Modifier.fillMaxSize()) {
+                        OutlinedTextField(
+                            value = searchQuery,
+                            onValueChange = { searchQuery = it },
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .padding(horizontal = 16.dp, vertical = 8.dp),
+                            placeholder = { Text("아이템 검색...") },
+                            leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "검색") },
+                            singleLine = true,
+                            colors = TextFieldDefaults.colors(
+                                focusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                unfocusedContainerColor = MaterialTheme.colorScheme.surfaceVariant,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent
+                            ),
+                            shape = androidx.compose.foundation.shape.RoundedCornerShape(12.dp)
+                        )
+                        
+                        val filteredData = state.data.filter {
+                            (it.nameKo?.contains(searchQuery, ignoreCase = true) == true) ||
+                            (it.name.contains(searchQuery, ignoreCase = true))
+                        }
+                        
+                        LazyVerticalGrid(
+                            columns = GridCells.Fixed(2),
+                            contentPadding = PaddingValues(8.dp),
+                            modifier = Modifier.weight(1f)
+                        ) {
+                            items(filteredData) { entry ->
+                                CompendiumItemCard(entry = entry) {
+                                    navController.navigate(Screen.ItemDetail.createRoute(category, entry.id))
+                                }
                             }
                         }
                     }
