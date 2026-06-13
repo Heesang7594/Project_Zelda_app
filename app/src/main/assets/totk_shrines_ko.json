@@ -1,52 +1,292 @@
 [
   {
-    "id": "shrine_1",
+    "id": "shrine_0",
     "name_ko": "우코우호의 사당",
     "name_en": "Ukouh Shrine",
     "region": "시작의 하늘섬",
-    "x": 200,
-    "y": 300,
-    "tip": "울트라핸드를 활용하여 갈고리와 판자를 연결해 레일을 타고 이동하세요.",
+    "x": 528.5,
+    "y": 614.1,
+    "tip": "물건을 연결하는 울트라핸드를 배웁니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_1",
+    "name_ko": "이음이사의 사당",
+    "name_en": "In-isa Shrine",
+    "region": "시작의 하늘섬",
+    "x": 502.8,
+    "y": 687.9,
+    "tip": "스크래빌드로 무기에 사물을 붙입니다.",
     "is_cleared": false
   },
   {
     "id": "shrine_2",
-    "name_ko": "이음이사의 사당",
-    "name_en": "In-isa Shrine",
-    "region": "시작의 하늘섬",
-    "x": 400,
-    "y": 450,
-    "tip": "스크래빌드를 사용하여 무기에 바위나 소재를 붙여 돌덩이를 부수세요.",
-    "is_cleared": true
-  },
-  {
-    "id": "shrine_3",
     "name_ko": "구탄바치의 사당",
     "name_en": "Gutanbac Shrine",
     "region": "시작의 하늘섬",
-    "x": 600,
-    "y": 200,
-    "tip": "트레루프를 사용하여 천장을 뚫고 위로 올라가는 능력을 익히세요.",
+    "x": 573.9,
+    "y": 672.6,
+    "tip": "천장을 뚫고 올라가는 트레루프를 배웁니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_3",
+    "name_ko": "나쵸야하의 사당",
+    "name_en": "Nachoyah Shrine",
+    "region": "시작의 하늘섬",
+    "x": 540.4,
+    "y": 707.5,
+    "tip": "시간을 되감는 리버레코를 배웁니다.",
     "is_cleared": false
   },
   {
     "id": "shrine_4",
-    "name_ko": "나쵸야하의 사당",
-    "name_en": "Nachoyah Shrine",
-    "region": "시작의 하늘섬",
-    "x": 300,
-    "y": 600,
-    "tip": "리버레코를 사용하여 움직이는 물체의 시간을 되감아 발판으로 사용하세요.",
+    "name_ko": "키요우노니스의 사당",
+    "name_en": "Kyononis Shrine",
+    "region": "하이랄 평원",
+    "x": 478.6,
+    "y": 443.6,
+    "tip": "전투의 기초를 배우는 사당입니다.",
     "is_cleared": false
   },
   {
     "id": "shrine_5",
-    "name_ko": "키요우의 사당",
-    "name_en": "Kiyou Shrine",
+    "name_ko": "야미요의 사당",
+    "name_en": "Yamiyo Shrine",
     "region": "하이랄 평원",
-    "x": 500,
-    "y": 700,
-    "tip": "빛을 반사시켜 과녁에 맞추는 퍼즐입니다. 거울의 각도를 잘 조절하세요.",
-    "is_cleared": true
+    "x": 534.6,
+    "y": 441.2,
+    "tip": "물건을 던지는 전투 훈련입니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_6",
+    "name_ko": "지오시니의 사당",
+    "name_en": "Jiosin Shrine",
+    "region": "하이랄 평원",
+    "x": 475.0,
+    "y": 546.8,
+    "tip": "도형을 돌려서 구멍을 통과시킵니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_7",
+    "name_ko": "스스야이의 사당",
+    "name_en": "Susuyai Shrine",
+    "region": "하이랄 평원",
+    "x": 418.2,
+    "y": 554.0,
+    "tip": "달리는 수레를 조작하고 피합니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_8",
+    "name_ko": "이쇼다구의 사당",
+    "name_en": "Ishodag Shrine",
+    "region": "하이랄 평원",
+    "x": 408.3,
+    "y": 447.3,
+    "tip": "선풍기로 바람을 일으켜 이동합니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_9",
+    "name_ko": "시나카와카의 사당",
+    "name_en": "Sinakawak Shrine",
+    "region": "하이랄 구릉",
+    "x": 352.8,
+    "y": 405.5,
+    "tip": "열기구를 만들어 위로 올라갑니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_10",
+    "name_ko": "마쿠루키사의 사당",
+    "name_en": "Makurukis Shrine",
+    "region": "하이랄 구릉",
+    "x": 203.4,
+    "y": 421.4,
+    "tip": "활을 쏘는 전투 훈련입니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_11",
+    "name_ko": "루나키타의 사당",
+    "name_en": "Runakit Shrine",
+    "region": "하이랄 구릉",
+    "x": 236.5,
+    "y": 353.8,
+    "tip": "구를 수 있는 물체를 운반합니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_12",
+    "name_ko": "가사사의 사당",
+    "name_en": "Gasas Shrine",
+    "region": "겔드 고지",
+    "x": 67.5,
+    "y": 487.8,
+    "tip": "매달린 돌을 끊고 다리를 만듭니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_13",
+    "name_ko": "투라카미카의 사당",
+    "name_en": "Turakamik Shrine",
+    "region": "겔드 고지",
+    "x": 160.0,
+    "y": 603.4,
+    "tip": "전기를 연결하여 기계를 작동시킵니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_14",
+    "name_ko": "츠츠우메의 사당",
+    "name_en": "Tsutsu-um Shrine",
+    "region": "하이랄 평원",
+    "x": 351.8,
+    "y": 668.6,
+    "tip": "기둥을 박아 구슬의 경로를 만듭니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_15",
+    "name_ko": "마야치노의 사당",
+    "name_en": "Mayachin Shrine",
+    "region": "하이랄 평원",
+    "x": 426.6,
+    "y": 608.3,
+    "tip": "말뚝을 박고 타이밍에 맞춰 공을 칩니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_16",
+    "name_ko": "카미즈나의 사당",
+    "name_en": "Kamizun Shrine",
+    "region": "하이랄 평원",
+    "x": 481.7,
+    "y": 694.6,
+    "tip": "맨몸으로 적과 싸우는 훈련입니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_17",
+    "name_ko": "테니테마의 사당",
+    "name_en": "Teniten Shrine",
+    "region": "하이랄 평원",
+    "x": 492.4,
+    "y": 639.4,
+    "tip": "무기를 던져 적을 맞추는 훈련입니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_18",
+    "name_ko": "타지카츠의 사당",
+    "name_en": "Tajikats Shrine",
+    "region": "하이랄 평원",
+    "x": 535.8,
+    "y": 626.1,
+    "tip": "통나무를 이어 다리와 뗏목을 만듭니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_19",
+    "name_ko": "조죠니의 사당",
+    "name_en": "Jojon Shrine",
+    "region": "라넬 지방",
+    "x": 625.2,
+    "y": 458.9,
+    "tip": "회전하는 장치를 타이밍에 맞춰 조작합니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_20",
+    "name_ko": "투카로쿠의 사당",
+    "name_en": "Tukarok Shrine",
+    "region": "라넬 지방",
+    "x": 595.3,
+    "y": 531.3,
+    "tip": "바퀴를 달아 장애물을 넘는 수레를 만듭니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_21",
+    "name_ko": "모로쿠의 사당",
+    "name_en": "Morok Shrine",
+    "region": "라넬 지방",
+    "x": 623.1,
+    "y": 597.4,
+    "tip": "용수철을 이용해 높이 점프합니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_22",
+    "name_ko": "마카스라의 사당",
+    "name_en": "Makasura Shrine",
+    "region": "필로네 지방",
+    "x": 684.4,
+    "y": 631.4,
+    "tip": "오뚝이를 이용해 발판을 세웁니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_23",
+    "name_ko": "쿠라카타의 사당",
+    "name_en": "Kurakat Shrine",
+    "region": "필로네 지방",
+    "x": 746.0,
+    "y": 563.9,
+    "tip": "돌을 돌려 그림자의 형태를 맞춥니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_24",
+    "name_ko": "지카이센의 사당",
+    "name_en": "Jikais Shrine",
+    "region": "라넬 산",
+    "x": 944.4,
+    "y": 709.3,
+    "tip": "블록을 옮겨 길을 만듭니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_25",
+    "name_ko": "요미즈키의 사당",
+    "name_en": "Yomizuk Shrine",
+    "region": "라넬 대수원",
+    "x": 959.6,
+    "y": 576.3,
+    "tip": "라넬의 혜택, 보물상자가 있는 사당입니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_26",
+    "name_ko": "이고쇼노의 사당",
+    "name_en": "Igoshon Shrine",
+    "region": "라넬 대수원",
+    "x": 862.5,
+    "y": 417.0,
+    "tip": "물방울을 타고 위로 이동합니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_27",
+    "name_ko": "아포게케의 사당",
+    "name_en": "Apoges Shrine",
+    "region": "라넬 대수원",
+    "x": 904.9,
+    "y": 527.1,
+    "tip": "날개를 달아 바람을 타고 날아갑니다.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_28",
+    "name_ko": "모가와카의 사당",
+    "name_en": "Mogawak Shrine",
+    "region": "조라의 마을",
+    "x": 843.6,
+    "y": 447.0,
+    "tip": "물의 힘으로 전기를 생성합니다.",
+    "is_cleared": false
   }
 ]
