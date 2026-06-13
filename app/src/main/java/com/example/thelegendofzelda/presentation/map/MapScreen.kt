@@ -81,7 +81,7 @@ fun MapScreen(viewModel: MapViewModel = viewModel()) {
                 Image(
                     painter = painterResource(id = R.drawable.hyrule_map),
                     contentDescription = "Hyrule Map",
-                    contentScale = ContentScale.Crop,
+                    contentScale = ContentScale.Fit,
                     modifier = Modifier.fillMaxSize()
                 )
 
