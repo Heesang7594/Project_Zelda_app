@@ -1,0 +1,52 @@
+[
+  {
+    "id": "shrine_1",
+    "name_ko": "우코우호의 사당",
+    "name_en": "Ukouh Shrine",
+    "region": "시작의 하늘섬",
+    "x": 200,
+    "y": 300,
+    "tip": "울트라핸드를 활용하여 갈고리와 판자를 연결해 레일을 타고 이동하세요.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_2",
+    "name_ko": "이음이사의 사당",
+    "name_en": "In-isa Shrine",
+    "region": "시작의 하늘섬",
+    "x": 400,
+    "y": 450,
+    "tip": "스크래빌드를 사용하여 무기에 바위나 소재를 붙여 돌덩이를 부수세요.",
+    "is_cleared": true
+  },
+  {
+    "id": "shrine_3",
+    "name_ko": "구탄바치의 사당",
+    "name_en": "Gutanbac Shrine",
+    "region": "시작의 하늘섬",
+    "x": 600,
+    "y": 200,
+    "tip": "트레루프를 사용하여 천장을 뚫고 위로 올라가는 능력을 익히세요.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_4",
+    "name_ko": "나쵸야하의 사당",
+    "name_en": "Nachoyah Shrine",
+    "region": "시작의 하늘섬",
+    "x": 300,
+    "y": 600,
+    "tip": "리버레코를 사용하여 움직이는 물체의 시간을 되감아 발판으로 사용하세요.",
+    "is_cleared": false
+  },
+  {
+    "id": "shrine_5",
+    "name_ko": "키요우의 사당",
+    "name_en": "Kiyou Shrine",
+    "region": "하이랄 평원",
+    "x": 500,
+    "y": 700,
+    "tip": "빛을 반사시켜 과녁에 맞추는 퍼즐입니다. 거울의 각도를 잘 조절하세요.",
+    "is_cleared": true
+  }
+]
