@@ -73,7 +73,7 @@ fun MainScreen(navController: NavController) {
             CategoryCard(
                 title = "생물",
                 subtitle = "동식물, 버섯류",
-                imageUrl = "https://zelda.nintendo.com/tears-of-the-kingdom/assets/img/home/hero-char-link.png",
+                imageModel = com.example.thelegendofzelda.R.drawable.cat_creatures,
                 color = CreatureGreen,
                 modifier = Modifier.weight(1f)
             ) {
@@ -82,7 +82,7 @@ fun MainScreen(navController: NavController) {
             CategoryCard(
                 title = "몬스터",
                 subtitle = "마물, 골렘 등",
-                imageUrl = "https://zelda.nintendo.com/tears-of-the-kingdom/assets/img/home/hero-char-ganondorf.png",
+                imageModel = com.example.thelegendofzelda.R.drawable.cat_monsters,
                 color = MonsterRed,
                 modifier = Modifier.weight(1f)
             ) {
@@ -97,7 +97,7 @@ fun MainScreen(navController: NavController) {
             CategoryCard(
                 title = "장비",
                 subtitle = "무기, 활, 조나우 기어",
-                imageUrl = "https://zelda.nintendo.com/tears-of-the-kingdom/assets/img/home/hero-char-zelda.png",
+                imageModel = com.example.thelegendofzelda.R.drawable.cat_equipment,
                 color = EquipmentBlue,
                 modifier = Modifier.weight(1f)
             ) {
@@ -106,7 +106,7 @@ fun MainScreen(navController: NavController) {
             CategoryCard(
                 title = "소재",
                 subtitle = "요리 재료, 광석, 결정",
-                imageUrl = "https://zelda.nintendo.com/tears-of-the-kingdom/assets/img/home/hero-char-sidon.png",
+                imageModel = com.example.thelegendofzelda.R.drawable.cat_materials,
                 color = MaterialOrange,
                 modifier = Modifier.weight(1f)
             ) {
@@ -134,7 +134,7 @@ fun MainScreen(navController: NavController) {
 fun CategoryCard(
     title: String,
     subtitle: String,
-    imageUrl: String,
+    imageModel: Any,
     color: Color,
     modifier: Modifier = Modifier,
     onClick: () -> Unit
@@ -148,7 +148,7 @@ fun CategoryCard(
         contentAlignment = Alignment.Center
     ) {
         coil.compose.AsyncImage(
-            model = imageUrl,
+            model = imageModel,
             contentDescription = title,
             contentScale = androidx.compose.ui.layout.ContentScale.Crop,
             modifier = Modifier.fillMaxSize()
