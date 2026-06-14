@@ -6,6 +6,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -27,6 +28,7 @@ import androidx.compose.material.icons.filled.Search
 @Composable
 fun VideoListScreen(navController: androidx.navigation.NavController, viewModel: GuideViewModel = viewModel()) {
     val videoState by viewModel.videoState.collectAsState()
+    val isLoadingMore by viewModel.isLoadingMore.collectAsState()
     val context = LocalContext.current
     
     var selectedTabIndex by remember { mutableStateOf(0) }
@@ -105,7 +107,17 @@ fun VideoListScreen(navController: androidx.navigation.NavController, viewModel:
                     }
                 }
                 is UiState.Success -> {
+                    val listState = rememberLazyListState()
+
+                    // Trigger loadMoreVideos when reaching the end of the list
+                    LaunchedEffect(listState.canScrollForward) {
+                        if (!listState.canScrollForward && state.data.isNotEmpty()) {
+                            viewModel.loadMoreVideos()
+                        }
+                    }
+
                     LazyColumn(
+                        state = listState,
                         modifier = Modifier.fillMaxSize(),
                         contentPadding = PaddingValues(16.dp),
                         verticalArrangement = Arrangement.spacedBy(16.dp)
@@ -114,6 +126,17 @@ fun VideoListScreen(navController: androidx.navigation.NavController, viewModel:
                             VideoItemCard(item = item) {
                                 val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.youtube.com/watch?v=${item.id.videoId}"))
                                 context.startActivity(intent)
+                            }
+                        }
+                        
+                        if (isLoadingMore) {
+                            item {
+                                Box(
+                                    modifier = Modifier.fillMaxWidth().padding(16.dp),
+                                    contentAlignment = Alignment.Center
+                                ) {
+                                    CircularProgressIndicator(modifier = Modifier.size(24.dp))
+                                }
                             }
                         }
                     }

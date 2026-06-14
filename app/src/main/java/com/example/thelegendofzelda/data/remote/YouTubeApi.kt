@@ -12,12 +12,14 @@ interface YouTubeApi {
         @Query("q") query: String,
         @Query("type") type: String = "video",
         @Query("maxResults") maxResults: Int = 10,
+        @Query("pageToken") pageToken: String? = null,
         @Query("key") apiKey: String
     ): YouTubeSearchResponse
 }
 
 @JsonClass(generateAdapter = true)
 data class YouTubeSearchResponse(
+    @Json(name = "nextPageToken") val nextPageToken: String? = null,
     @Json(name = "items") val items: List<YouTubeSearchItem>
 )
 
