@@ -8,7 +8,13 @@ import androidx.compose.foundation.gestures.rememberTransformableState
 import androidx.compose.foundation.gestures.transformable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.slideInVertically
+import androidx.compose.animation.slideOutVertically
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.CheckCircle
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.*
@@ -45,12 +51,22 @@ fun MapScreen(viewModel: MapViewModel = viewModel()) {
     }
 
     var selectedShrine by remember { mutableStateOf<Shrine?>(null) }
+    var isFilterMenuVisible by remember { mutableStateOf(true) }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("하이랄 지도", color = Color.White) },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = ZeldaGreen)
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = ZeldaGreen),
+                actions = {
+                    IconButton(onClick = { isFilterMenuVisible = !isFilterMenuVisible }) {
+                        Icon(
+                            imageVector = Icons.Filled.Menu,
+                            contentDescription = "Toggle Filter",
+                            tint = Color.White
+                        )
+                    }
+                }
             )
         }
     ) { padding ->
@@ -113,23 +129,29 @@ fun MapScreen(viewModel: MapViewModel = viewModel()) {
             }
 
             // Filter Menu
-            Card(
+            AnimatedVisibility(
+                visible = isFilterMenuVisible,
+                enter = fadeIn() + slideInVertically(initialOffsetY = { -it / 2 }),
+                exit = fadeOut() + slideOutVertically(targetOffsetY = { -it / 2 }),
                 modifier = Modifier
                     .align(Alignment.TopStart)
                     .padding(16.dp)
-                    .width(200.dp),
-                colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f))
             ) {
-                Column(modifier = Modifier.padding(8.dp)) {
-                    Text("필터", fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp, start = 8.dp))
-                    FilterOption("모든 사당", currentFilter == ShrineFilter.ALL) {
-                        viewModel.setFilter(ShrineFilter.ALL)
-                    }
-                    FilterOption("클리어한 사당", currentFilter == ShrineFilter.CLEARED) {
-                        viewModel.setFilter(ShrineFilter.CLEARED)
-                    }
-                    FilterOption("클리어하지 않은 사당", currentFilter == ShrineFilter.UNCLEARED) {
-                        viewModel.setFilter(ShrineFilter.UNCLEARED)
+                Card(
+                    modifier = Modifier.width(200.dp),
+                    colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface.copy(alpha = 0.9f))
+                ) {
+                    Column(modifier = Modifier.padding(8.dp)) {
+                        Text("필터", fontWeight = FontWeight.Bold, modifier = Modifier.padding(bottom = 8.dp, start = 8.dp))
+                        FilterOption("모든 사당", currentFilter == ShrineFilter.ALL) {
+                            viewModel.setFilter(ShrineFilter.ALL)
+                        }
+                        FilterOption("클리어한 사당", currentFilter == ShrineFilter.CLEARED) {
+                            viewModel.setFilter(ShrineFilter.CLEARED)
+                        }
+                        FilterOption("클리어하지 않은 사당", currentFilter == ShrineFilter.UNCLEARED) {
+                            viewModel.setFilter(ShrineFilter.UNCLEARED)
+                        }
                     }
                 }
             }
